@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import FontAwsome from 'react-native-vector-icons/FontAwesome5';
-import Axios from 'axios';
+//import Axios from 'axios';
 import google from '../../assets/img/google.png';
 //
 import BackgroundImg from '../../assets/img/bg-transferent.png';
