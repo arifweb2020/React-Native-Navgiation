@@ -40,7 +40,7 @@ export default function StackNavigator() {
         <Stack.Screen
           name="Signup"
           component={SignupScreen}
-          //   options={{headerShown: false}}
+          options={{headerShown: false}}
         />
         {/*  */}
         <Stack.Screen

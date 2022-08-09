@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -16,7 +16,42 @@ import BackgroundImg from '../../assets/img/bg-transferent.png';
 import google from '../../assets/img/google.png';
 
 export default function Login() {
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  //
   const navigation = useNavigation();
+
+  const loginUser = () => {
+    if (!email) {
+      return alert('Enter email');
+    } else if (!password) {
+      return alert('Enter password');
+    }
+    setEmail('');
+    setPassword('');
+    navigation.navigate('DrawerNavigator');
+  };
+
+  // const loginUser = async () => {
+  //   try {
+  //     const {data} = await fetch('http://192.168.0.102/api/login.php', {
+  //       email: email,
+  //       password: password,
+  //     });
+
+  //     if (data.status == 'success') {
+  //       alert('User Login Successfully');
+  //     } else {
+  //       alert('User Not Found');
+  //     }
+
+  //     console.log(data);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
   return (
     <View style={styles.container}>
       <StatusBar hidden={true} />
@@ -30,10 +65,10 @@ export default function Login() {
       <View style={styles.bottomBackgroundImgContainer}></View>
       <View style={styles.formContainer}>
         <View style={styles.formTopContainer}>
-          <FontAwsome name="angle-left" size={30} color="#fff" />
+          {/* <FontAwsome name="angle-left" size={30} color="#fff" /> */}
 
           <Text style={{color: '#fff', fontSize: 30, fontWeight: 'bold'}}>
-            Kill with me!
+            Kill With Me!
           </Text>
         </View>
         <View style={styles.formBottomContainer}>
@@ -41,20 +76,39 @@ export default function Login() {
             {/*  */}
             <View style={styles.customInputContainer}>
               <Text>Email</Text>
-              <TextInput style={{padding: 0}} />
+              <TextInput
+                style={{padding: 0}}
+                onChangeText={text => setEmail(text)}
+              />
             </View>
             {/*  */}
             {/*  */}
             <View style={styles.customInputContainer}>
               <Text>Password</Text>
-              <TextInput style={{padding: 0}} secureTextEntry={true} />
+              <View
+                style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                <TextInput
+                  style={{padding: 0}}
+                  secureTextEntry={!isPasswordVisible}
+                  onChangeText={text => setPassword(text)}
+                />
+                <TouchableOpacity
+                  onPress={() => setIsPasswordVisible(!isPasswordVisible)}>
+                  <FontAwsome
+                    name={isPasswordVisible ? 'eye-slash' : 'eye'}
+                    size={20}
+                  />
+                </TouchableOpacity>
+              </View>
             </View>
             {/*  */}
             {/*  */}
-            <TouchableOpacity style={styles.loginButton}>
-              <Text
-                style={{color: '#fff', fontWeight: 'bold', fontSize: 17}}
-                onPress={() => navigation.navigate('DrawerNavigator')}>
+            <TouchableOpacity
+              style={styles.loginButton}
+              onPress={() => {
+                loginUser();
+              }}>
+              <Text style={{color: '#fff', fontWeight: 'bold', fontSize: 17}}>
                 Login
               </Text>
             </TouchableOpacity>
@@ -81,15 +135,17 @@ export default function Login() {
             {/*  */}
             <View>
               <View style={{flexDirection: 'row', marginVertical: 10}}>
-                <Text>Don't Have An Account</Text>
-                <TouchableOpacity>
+                <Text style={{color: '#fff'}}>Don't Have An Account</Text>
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate('Signup');
+                  }}>
                   <Text
                     style={{
                       marginLeft: 5,
                       color: '#02C38E',
                       fontWeight: 'bold',
-                    }}
-                    onPress={() => navigation.navigate('Signup')}>
+                    }}>
                     Signup
                   </Text>
                 </TouchableOpacity>
@@ -137,7 +193,7 @@ const styles = StyleSheet.create({
   },
   formTopContainer: {
     flex: 1,
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
     padding: 10,
     marginLeft: 10,
   },
@@ -149,7 +205,7 @@ const styles = StyleSheet.create({
   formBottomSubContainer: {
     width: '95%',
     borderRadius: 10,
-    backgroundColor: 'rgba(255,255,255,0.5)',
+    backgroundColor: 'rgba(127,127,127,0.5)',
     padding: 20,
   },
   customInputContainer: {
