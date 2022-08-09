@@ -33,7 +33,7 @@ export default function Login() {
           <FontAwsome name="angle-left" size={30} color="#fff" />
 
           <Text style={{color: '#fff', fontSize: 30, fontWeight: 'bold'}}>
-            Hi!
+            Kill with me!
           </Text>
         </View>
         <View style={styles.formBottomContainer}>
@@ -88,7 +88,8 @@ export default function Login() {
                       marginLeft: 5,
                       color: '#02C38E',
                       fontWeight: 'bold',
-                    }}>
+                    }}
+                    onPress={() => navigation.navigate('Signup')}>
                     Signup
                   </Text>
                 </TouchableOpacity>
